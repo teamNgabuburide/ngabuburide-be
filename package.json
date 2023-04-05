@@ -1,0 +1,19 @@
+{
+  "name": "ngabuburide-be",
+  "version": "1.0.0",
+  "description": "eComers application developed by a team",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/teamNgabuburide/ngabuburide-be.git"
+  },
+  "author": "redha-definto, abdul-latif-rosid, afif-buchori",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/teamNgabuburide/ngabuburide-be/issues"
+  },
+  "homepage": "https://github.com/teamNgabuburide/ngabuburide-be#readme"
+}
