@@ -1,8 +1,10 @@
 const express = require("express");
-const route = express.Router();
+const masterRouter = express.Router();
 
-route.get("/", (req, res) => {
-  return res.json({ msg: "SUcces" });
-});
+const authRouter = require("./auth.route");
 
-module.exports = route;
+
+masterRouter.use('/auth', authRouter)
+
+
+module.exports = masterRouter;
