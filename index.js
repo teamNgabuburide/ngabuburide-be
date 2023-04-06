@@ -21,3 +21,5 @@ app.use(masterRouter);
 app.listen(serverPort, () => {
   console.log("App listening to port : " + serverPort);
 });
+
+module.exports = app;
