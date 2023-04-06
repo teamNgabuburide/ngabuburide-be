@@ -32,16 +32,6 @@ const getEmail = (body) => {
   });
 };
 
-// const getIdUsers = () => {
-//   return new Promise((resolve, reject) => {
-//     const sqlQuery = "select MAX(id) from users";
-//     db.query(sqlQuery, (err, result) => {
-//       if (err) reject(err);
-//       resolve(result);
-//     });
-//   });
-// };
-
 const createBlackList = (token) => {
   return new Promise((resolve, reject) => {
     const sqlQuery = `update tokens set black_list = $1 where token = $2`;
@@ -68,20 +58,41 @@ const register = (data, hashedPassword) => {
   });
 };
 
-// const getToken = (userId) => {
-//   return new Promise((resolve, reject) => {
-//     const sqlQuery = `select token from fr where id = $1`;
-//     db.query(sqlQuery, [userId], (err, result) => {
-//       if (err) reject(err);
-//       resolve(result);
-//     });
-//   });
-// };
+const createOtp = (email, otp) => {
+  return new Promise((resolve, reject) => {
+    const sqlQuery = "UPDATE users set otp = $1 WHERE email = $2 RETURNING otp";
+    const values = [otp, email];
+    db.query(sqlQuery, values, (err, result) => {
+      if (err) return reject(err);
+      resolve(result);
+    });
+  });
+};
+
+const getOtp = (email) => {
+  return new Promise((resolve, reject) => {
+    const sqlQuery = "select otp from users where email = $1";
+    db.query(sqlQuery, [email], (err, result) => {
+      if (err) reject(err);
+      resolve(result);
+    });
+  });
+};
 
 const getBlackList = (token) => {
   return new Promise((resolve, reject) => {
     const sqlQuery = `SELECT black_list FROM tokens WHERE token = $1`;
     db.query(sqlQuery, [token], (err, result) => {
+      if (err) reject(err);
+      resolve(result);
+    });
+  });
+};
+
+const forgot = (email, password) => {
+  return new Promise((resolve, reject) => {
+    const sqlQuery = `UPDATE users set password = $1 where email = $2`;
+    db.query(sqlQuery, [password, email], (err, result) => {
       if (err) reject(err);
       resolve(result);
     });
@@ -94,5 +105,8 @@ module.exports = {
   getEmail,
   getBlackList,
   register,
-  createBlackList
+  createBlackList,
+  getOtp,
+  createOtp,
+  forgot
 }
