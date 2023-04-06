@@ -20,10 +20,6 @@ const checkToken = (req, res, next) => {
   jwt.verify(token, jwtSecret, async (err, payload) => {
     // jika tidak, maka tolak akses
     if (err && err.name)
-      // return error(res, {
-      //   status: 403,
-      //   message: err.message,
-      // });
       return res.status(200).json({
         msg: err.message
       })
@@ -45,10 +41,10 @@ const checkToken = (req, res, next) => {
       return res.status(500).json({
         msg: err.message
       })
-    // if()
-    // jika valid, maka lanjut ke controller
-    // attach payload ke object request
-    req.authInfo = payload;
+    req.authInfo = {
+      ...payload,
+      token
+    };
     next();
   });
 };

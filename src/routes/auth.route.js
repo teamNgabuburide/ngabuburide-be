@@ -8,5 +8,7 @@ const authRouter = Router();
 authRouter.post('/', authContoller.login);
 authRouter.post("/register", authContoller.register);
 authRouter.get("/private", authMiddleware.checkToken, authContoller.privateAcces);
+authRouter.patch("/logout", authMiddleware.checkToken, authContoller.logOut);
+
 
 module.exports = authRouter

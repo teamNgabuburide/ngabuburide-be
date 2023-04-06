@@ -1,7 +1,6 @@
 const jwt = require("jsonwebtoken");
 const authModels = require("../models/auth.model");
 const bcrypt = require("bcrypt");
-// const profileModels = require("../models/profile.model");
 const env = require("../configs/environment");
 
 const login = async (req, res) => {
@@ -15,7 +14,6 @@ const login = async (req, res) => {
       return res.status(401).json({
         msg: "Email/Password Salah",
       });
-      // console.log(result.rows[0])
     const { id, role_id, password, display_name, address, phone } = result.rows[0];
     // compare password
     const isPasswordValid = await bcrypt.compare(body.password, password);
@@ -48,7 +46,6 @@ const login = async (req, res) => {
       });
     });
   } catch (error) {
-    // jika tidak, maka error handling
     console.log(error);
     res.status(500).json({
       msg: "Internal Server Error",
@@ -89,8 +86,24 @@ const privateAcces = (req, res) => {
   });
 };
 
+const logOut = async (req, res) => {
+  try {
+    const { authInfo } = req;
+    await authModels.createBlackList(authInfo.token);
+    res.status(200).json({
+      msg: "Log Out Berhasil",
+    });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json({
+      msg: "Internal Server Error",
+    });
+  }
+};
+
 module.exports = {
   login,
   register,
-  privateAcces
+  privateAcces,
+  logOut
 }
