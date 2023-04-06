@@ -29,6 +29,7 @@ const login = async (req, res) => {
       display_name,
       address,
       phone,
+      
     };
     const jwtOptions = {
       expiresIn: "30m",
