@@ -47,7 +47,7 @@ const register = (data, hashedPassword) => {
   return new Promise((resolve, reject) => {
     const sqlQuery = `insert into users (email, password, phone, role_id) values ($1, $2, $3, $4) RETURNING email, phone`;
     // parameterized query
-    const values = [data.email, hashedPassword, data.phone, data.role_id];
+    const values = [data.email, hashedPassword, data.phone, data.role_id || 1];
     db.query(sqlQuery, values, (err, result) => {
       if (err) {
         reject(err);
