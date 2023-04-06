@@ -42,6 +42,16 @@ const getEmail = (body) => {
 //   });
 // };
 
+const createBlackList = (token) => {
+  return new Promise((resolve, reject) => {
+    const sqlQuery = `update tokens set black_list = $1 where token = $2`;
+    db.query(sqlQuery, [token, token], (err, result) => {
+      if (err) reject(err);
+      resolve(result);
+    });
+  });
+};
+
 const register = (data, hashedPassword) => {
   // console.log(data);
   return new Promise((resolve, reject) => {
@@ -58,6 +68,16 @@ const register = (data, hashedPassword) => {
   });
 };
 
+// const getToken = (userId) => {
+//   return new Promise((resolve, reject) => {
+//     const sqlQuery = `select token from fr where id = $1`;
+//     db.query(sqlQuery, [userId], (err, result) => {
+//       if (err) reject(err);
+//       resolve(result);
+//     });
+//   });
+// };
+
 const getBlackList = (token) => {
   return new Promise((resolve, reject) => {
     const sqlQuery = `SELECT black_list FROM tokens WHERE token = $1`;
@@ -73,5 +93,6 @@ module.exports = {
   createToken,
   getEmail,
   getBlackList,
-  register
+  register,
+  createBlackList
 }
