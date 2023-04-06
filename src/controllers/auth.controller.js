@@ -16,7 +16,7 @@ const login = async (req, res) => {
         msg: "Email/Password Salah",
       });
       // console.log(result.rows[0])
-    const { id, role_id, password } = result.rows[0];
+    const { id, role_id, password, display_name, address, phone } = result.rows[0];
     // compare password
     const isPasswordValid = await bcrypt.compare(body.password, password);
     if (!isPasswordValid)
@@ -26,6 +26,9 @@ const login = async (req, res) => {
     const payload = {
       id,
       role_id,
+      display_name,
+      address,
+      phone,
     };
     const jwtOptions = {
       expiresIn: "30m",
@@ -35,9 +38,12 @@ const login = async (req, res) => {
       if (err) throw err;
       await authModels.createToken(token);
       res.status(200).json({
-        msg: "Selamat Datang",
+        msg: "Login Success",
         token,
         id,
+        phone,
+        display_name,
+        address
       });
     });
   } catch (error) {

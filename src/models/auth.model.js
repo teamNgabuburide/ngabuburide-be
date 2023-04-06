@@ -3,7 +3,7 @@ const db = require("../configs/supabase");
 const userVerification = (body) => {
   return new Promise((resolve, reject) => {
     // verifikasi ke db
-    const sql = "SELECT id, role_id, password FROM users WHERE email=$1";
+    const sql = "SELECT id, role_id, password, display_name, phone FROM users WHERE email=$1";
     db.query(sql, [body.email], (err, result) => {
       if (err) return reject(err);
       resolve(result);
