@@ -1,5 +1,17 @@
 const db = require("../configs/supabase");
 
+const allCategories = () => {
+  return new Promise((resolve, reject) => {
+    db.query("select name from categories", (error, result) => {
+      if (error) {
+        reject(error);
+      } else {
+        resolve(result.rows);
+      }
+    });
+  });
+};
+
 const addProduct = ({
   seller_id,
   prod_name,
@@ -52,4 +64,40 @@ const addImages = (id, filename) => {
   });
 };
 
-module.exports = { addProduct, addImages };
+const getProductId = (id) => {
+  return new Promise((resolve, reject) => {
+    db.query(
+      "select p.id, p.prod_name, p.prod_name, p.description, p.price, p.color, p.brand, p.category_id, p.stock, p.condition, a.image from products p join prod_images a on p.id=a.prod_id where p.id=$1",
+      [id],
+      (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result.rows);
+        }
+      }
+    );
+  });
+};
+const getAllProduct = (id) => {
+  return new Promise((resolve, reject) => {
+    db.query(
+      "select p.id, p.prod_name, p.prod_name, p.description, p.price, p.color, p.brand, c.name as category_name, p.stock, p.condition, a.image from products p join prod_images a on p.id=a.prod_id join categories c on p.category_id=c.id",
+      (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result.rows);
+        }
+      }
+    );
+  });
+};
+
+module.exports = {
+  allCategories,
+  addProduct,
+  addImages,
+  getProductId,
+  getAllProduct,
+};
