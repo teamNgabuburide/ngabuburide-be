@@ -42,7 +42,8 @@ const login = async (req, res) => {
         id,
         phone,
         display_name,
-        address
+        address,
+        role_id
       });
     });
   } catch (error) {
