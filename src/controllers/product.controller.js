@@ -1,4 +1,6 @@
 const productModel = require("../models/product.model");
+
+const helper = require("../helpers/pages");
 module.exports = {
   getAllCategories: async (req, res) => {
     try {
@@ -67,21 +69,23 @@ module.exports = {
         return acc;
       }, []);
 
-      categories = categories || "accessories";
+      categories = categories || "";
       keyword = keyword || "";
       brand = brand || "";
       color = color || "";
+      page = page || 1;
+
       const [minPrice, maxPrice] = price.split("-");
 
       let dataFiltering = [];
       dataFiltering = result.filter(
         (item) =>
-          item.category_name.toLowerCase() === categories &&
+          item.category_name.toLowerCase().includes(categories) &&
           item.prod_name.toLowerCase().includes(keyword) &&
           item.brand.toLowerCase().includes(brand) &&
           item.color.toLowerCase().includes(color) &&
-          item.price >= parseInt(minPrice) &&
-          item.price <= parseInt(maxPrice)
+          item.price >= parseInt(minPrice ? minPrice : 0) &&
+          item.price <= parseInt(maxPrice ? maxPrice : Number.MAX_SAFE_INTEGER)
       );
 
       limit = Number(limit) < 15 ? 15 : Number(limit);
@@ -109,15 +113,47 @@ module.exports = {
               }
               return 0;
             });
+      let newResult = helper.listToMatrix(sortingData, limit);
+
+      if (newResult.length == 0) {
+        newResult[0] = [];
+      }
 
       return res.status(200).json({
         status: 200,
         msg: "Success get data product",
-        data: sortingData,
+        data:
+          page == ""
+            ? newResult[0]
+            : page > totalpage
+            ? (newResult = [])
+            : newResult[page - 1],
         totalData: dataFiltering.length,
         totalpage: totalpage,
         limit: limit,
+        page: Number(page) == "" ? 1 : Number(page),
       });
+    } catch (error) {
+      console.log(error);
+      return res
+        .status(500)
+        .json({ status: 500, msg: "internal server error" });
+    }
+  },
+  editProduct: async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      console.log(req.body);
+      console.log(req.files);
+      if (!req.files) {
+        return res.status(401).json({ msg: "Image cannot blank" });
+      }
+      const getData = await productModel.getProductId(id);
+      if (getData.length < 1) {
+        return res.status(404).json({ status: 404, msg: "Product not found" });
+      }
+      console.log(getData);
     } catch (error) {
       console.log(error);
       return res

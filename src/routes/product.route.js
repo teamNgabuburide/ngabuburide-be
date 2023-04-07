@@ -12,5 +12,10 @@ route.post(
   productController.addProduct
 );
 route.get("/:id", productController.getProductById);
+route.patch(
+  "/edit/:id",
+  uploadImageProduct.uploadImage,
+  productController.editProduct
+);
 
 module.exports = route;
