@@ -30,7 +30,7 @@ const login = async (req, res) => {
       
     };
     const jwtOptions = {
-      expiresIn: "30m",
+      expiresIn: "2 days",
     };
     // buat token
     jwt.sign(payload, env.jwtSecret, jwtOptions, async (err, token) => {
