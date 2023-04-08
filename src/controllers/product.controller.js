@@ -61,8 +61,17 @@ module.exports = {
   },
   getAllProduct: async (req, res) => {
     try {
-      let { brand, color, price, order, categories, keyword, page, limit } =
-        req.query;
+      let {
+        brand,
+        color,
+        price,
+        order,
+        categories,
+        keyword,
+        page,
+        limit,
+        column,
+      } = req.query;
       const getData = await productModel.getAllProduct();
       const result = getData.reduce((acc, curr) => {
         const existing = acc.find((item) => item.id === curr.id);
@@ -93,27 +102,30 @@ module.exports = {
           item.price <= parseInt(maxPrice ? maxPrice : Number.MAX_SAFE_INTEGER)
       );
 
-      limit = Number(limit) < 15 ? 15 : Number(limit);
+      limit = Number(limit) < 9 ? 9 : Number(limit);
 
       const totaldata = dataFiltering.length;
       const totalpage = Math.ceil(totaldata / limit);
 
+      column = column || "id";
+      order = order || "ascending";
+
       const sortingData =
         order == "ascending"
           ? dataFiltering.sort((a, b) => {
-              if (a.prod_name < b.prod_name) {
+              if (a[column] < b[column]) {
                 return -1;
               }
-              if (a.prod_name > b.prod_name) {
+              if (a[column] > b[column]) {
                 return 1;
               }
               return 0;
             })
           : dataFiltering.sort((a, b) => {
-              if (a.prod_name < b.prod_name) {
+              if (a[column] < b[column]) {
                 return 1;
               }
-              if (a.prod_name > b.prod_name) {
+              if (a[column] > b[column]) {
                 return -1;
               }
               return 0;
