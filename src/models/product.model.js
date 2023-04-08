@@ -2,7 +2,7 @@ const db = require("../configs/supabase");
 
 const allCategories = () => {
   return new Promise((resolve, reject) => {
-    db.query("select name from categories", (error, result) => {
+    db.query("select * from categories", (error, result) => {
       if (error) {
         reject(error);
       } else {
@@ -93,6 +93,7 @@ const getAllProduct = () => {
     );
   });
 };
+
 const getCountCategory = () => {
   return new Promise((resolve, reject) => {
     db.query(
@@ -108,6 +109,22 @@ const getCountCategory = () => {
   });
 };
 
+const countCategory = (id) => {
+  return new Promise((resolve, reject) => {
+    db.query(
+      "SELECT COUNT(*) FROM products WHERE category_id = $1",
+      [id],
+      (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result);
+        }
+      }
+    );
+  });
+};
+
 module.exports = {
   allCategories,
   addProduct,
@@ -115,4 +132,5 @@ module.exports = {
   getProductId,
   getAllProduct,
   getCountCategory,
+  countCategory,
 };
