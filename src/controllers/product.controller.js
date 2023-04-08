@@ -169,7 +169,6 @@ module.exports = {
   getCountCategory: async (req, res) => {
     try {
       const categories = await productModel.allCategories();
-      console.log(categories);
 
       let result = [];
       for (const category of categories) {
@@ -177,12 +176,12 @@ module.exports = {
         if (countResult.rows[0].count > 0) {
           result.push({
             category_name: category.name,
-            total: parseInt(countResult.rows[0].count),
+            totaldata: parseInt(countResult.rows[0].count),
           });
         } else {
           result.push({
             category_name: category.name,
-            total: 0,
+            totaldata: 0,
           });
         }
       }
