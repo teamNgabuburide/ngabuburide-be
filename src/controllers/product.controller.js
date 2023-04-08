@@ -168,7 +168,25 @@ module.exports = {
   },
   getCountCategory: async (req, res) => {
     try {
-      const result = await productModel.getCountCategory();
+      const categories = await productModel.allCategories();
+      console.log(categories);
+
+      let result = [];
+      for (const category of categories) {
+        const countResult = await productModel.countCategory(category.id);
+        if (countResult.rows[0].count > 0) {
+          result.push({
+            category_name: category.name,
+            total: parseInt(countResult.rows[0].count),
+          });
+        } else {
+          result.push({
+            category_name: category.name,
+            total: 0,
+          });
+        }
+      }
+
       return res
         .status(201)
         .json({ status: 201, msg: "Success get data", data: result });
