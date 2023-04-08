@@ -18,12 +18,15 @@ module.exports = {
   addProduct: async (req, res) => {
     try {
       const result = await productModel.addProduct(req.body);
-
-      await Promise.all(
-        req.files.map((item) => {
-          productModel.addImages(result[0].id, item.filename);
-        })
-      );
+      console.log(req.files);
+      // await Promise.all(
+      //   req.files.map((item) => {
+      //     productModel.addImages(result[0].id, item.filename);
+      //   })
+      // );
+      for (const item of req.files) {
+        await productModel.addImages(result[0].id, item.filename);
+      }
       return res
         .status(201)
         .json({ status: 201, msg: "Success add produtc", data: result });

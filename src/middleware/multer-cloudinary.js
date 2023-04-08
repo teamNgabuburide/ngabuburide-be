@@ -6,8 +6,6 @@ const storage = new CloudinaryStorage({
   cloudinary,
   params: {
     folder: "test collab",
-    allowedFormats: ["jpg", "jpeg", "png", "webp"],
-    transformation: [{ width: 500, height: 500, crop: "limit" }],
   },
 });
 
@@ -15,6 +13,15 @@ module.exports = {
   uploadImage: (req, res, next) => {
     const upload = multer({
       storage: storage,
+      fileFilter: (req, file, cb) => {
+        if (file.mimetype.split("/")[0] !== "image") {
+          return res
+            .status(401)
+            .json({ status: 401, msg: "Only type image allowed" });
+        }
+        cb(null, true);
+      },
+      limits: { fileSize: 300000 },
     }).array("images", 6);
 
     upload(req, res, function (err) {
