@@ -3,7 +3,7 @@ const db = require("../configs/supabase");
 const userVerification = (body) => {
   return new Promise((resolve, reject) => {
     // verifikasi ke db
-    const sql = "SELECT id, role_id, password, display_name, phone FROM users WHERE email=$1";
+    const sql = "SELECT id, role_id, password, address, display_name, phone FROM users WHERE email=$1";
     db.query(sql, [body.email], (err, result) => {
       if (err) return reject(err);
       resolve(result);
@@ -43,11 +43,10 @@ const createBlackList = (token) => {
 };
 
 const register = (data, hashedPassword) => {
-  // console.log(data);
   return new Promise((resolve, reject) => {
-    const sqlQuery = `insert into users (email, password, phone, role_id) values ($1, $2, $3, $4) RETURNING email, phone`;
+    const sqlQuery = `insert into users (email, password, role_id) values ($1, $2, $3) RETURNING email, phone`;
     // parameterized query
-    const values = [data.email, hashedPassword, data.phone, data.role_id];
+    const values = [data.email, hashedPassword, data.role_id || 1];
     db.query(sqlQuery, values, (err, result) => {
       if (err) {
         reject(err);
