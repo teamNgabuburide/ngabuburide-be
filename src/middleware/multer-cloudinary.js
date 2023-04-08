@@ -15,7 +15,7 @@ module.exports = {
   uploadImage: (req, res, next) => {
     const upload = multer({
       storage: storage,
-    }).array("images");
+    }).array("images", 6);
 
     upload(req, res, function (err) {
       if (err instanceof multer.MulterError) {
