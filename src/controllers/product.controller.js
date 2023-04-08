@@ -166,4 +166,17 @@ module.exports = {
         .json({ status: 500, msg: "internal server error" });
     }
   },
+  getCountCategory: async (req, res) => {
+    try {
+      const result = await productModel.getCountCategory();
+      return res
+        .status(201)
+        .json({ status: 201, msg: "Success get data", data: result });
+    } catch (error) {
+      console.log(error);
+      return res
+        .status(500)
+        .json({ status: 500, msg: "internal server error" });
+    }
+  },
 };

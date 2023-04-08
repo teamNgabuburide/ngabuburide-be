@@ -6,6 +6,7 @@ const uploadImageProduct = require("../middleware/multer-cloudinary");
 
 route.get("/categories", productController.getAllCategories);
 route.get("/all", productController.getAllProduct);
+route.get("/categories/count", productController.getCountCategory);
 route.post(
   "/add",
   uploadImageProduct.uploadImage,

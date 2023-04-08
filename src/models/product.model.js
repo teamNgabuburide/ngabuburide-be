@@ -93,6 +93,20 @@ const getAllProduct = () => {
     );
   });
 };
+const getCountCategory = () => {
+  return new Promise((resolve, reject) => {
+    db.query(
+      "SELECT name, COUNT(*) AS totaldata FROM products INNER JOIN categories ON products.category_id = categories.id GROUP BY categories.id",
+      (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result.rows);
+        }
+      }
+    );
+  });
+};
 
 module.exports = {
   allCategories,
@@ -100,4 +114,5 @@ module.exports = {
   addImages,
   getProductId,
   getAllProduct,
+  getCountCategory,
 };
