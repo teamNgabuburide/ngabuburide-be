@@ -9,7 +9,6 @@ module.exports = {
         .status(200)
         .json({ status: 200, msg: "Success get all categories", data: result });
     } catch (error) {
-      console.log(error);
       return res
         .status(500)
         .json({ status: 500, msg: "internal server error" });
@@ -151,7 +150,6 @@ module.exports = {
         page: Number(page) == "" ? 1 : Number(page),
       });
     } catch (error) {
-      console.log(error);
       return res
         .status(500)
         .json({ status: 500, msg: "internal server error" });
@@ -162,7 +160,6 @@ module.exports = {
       const { id } = req.params;
 
       const dataImages = req.files;
-      console.log(dataImages);
       if (!req.files) {
         return res.status(401).json({ msg: "Image cannot blank" });
       }
@@ -206,7 +203,6 @@ module.exports = {
         data: result,
       });
     } catch (error) {
-      console.log(error);
       return res
         .status(500)
         .json({ status: 500, msg: "internal server error" });
@@ -249,7 +245,6 @@ module.exports = {
         .status(200)
         .json({ status: 200, msg: "Success delete data", data: result });
     } catch (error) {
-      console.log(error);
       return res
         .status(500)
         .json({ status: 500, msg: "internal server error" });
