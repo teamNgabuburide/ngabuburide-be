@@ -2,7 +2,7 @@ const db = require("../configs/supabase");
 
 const getFavorite = (id) => {
   return new Promise((resolve, reject) => {
-    const sqlQuery = `SELECT u.id, pi.image, f.prod_id, p.prod_name, p.stock, p.price 
+    const sqlQuery = `SELECT f.user_id, pi.image, f.prod_id, p.prod_name, p.stock, p.price 
     FROM favorite f 
     JOIN users u ON u.id = $1
     JOIN products p ON p.id = f.prod_id 
