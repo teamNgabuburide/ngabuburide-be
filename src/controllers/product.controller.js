@@ -250,4 +250,26 @@ module.exports = {
         .json({ status: 500, msg: "internal server error" });
     }
   },
+  getDataProductByUser: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const getData = await productModel.getProductByUser(id);
+      const result = getData.reduce((acc, curr) => {
+        const existing = acc.find((item) => item.id === curr.id);
+        if (existing) {
+          existing.image.push(curr.image);
+        } else {
+          acc.push({ ...curr, image: [curr.image] });
+        }
+        return acc;
+      }, []);
+      return res
+        .status(200)
+        .json({ status: 200, msg: "Success get data", data: result });
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ status: 500, msg: "internal server error" });
+    }
+  },
 };
