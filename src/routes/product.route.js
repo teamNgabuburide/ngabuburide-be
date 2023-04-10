@@ -20,4 +20,5 @@ route.patch(
 );
 route.patch("/edit/:id", productController.updateProduct);
 route.delete("/delete/:id", productController.deleteProduct);
+route.get("/user/:id", productController.getDataProductByUser);
 module.exports = route;

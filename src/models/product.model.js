@@ -182,6 +182,22 @@ updateProduct = (
   });
 };
 
+const getProductByUser = (id) => {
+  return new Promise((resolve, reject) => {
+    db.query(
+      "select p.id, p.prod_name, c.name, p.description, p.price, p.color, p.brand, p.condition, pi.image from products p join categories c on c.id=p.category_id join prod_images pi on pi.prod_id=p.id where p.seller_id=$1",
+      [id],
+      (error, result) => {
+        if (error) {
+          reject(error);
+        } else {
+          resolve(result.rows);
+        }
+      }
+    );
+  });
+};
+
 module.exports = {
   allCategories,
   addProduct,
@@ -193,4 +209,5 @@ module.exports = {
   deleteProduct,
   updateImage,
   updateProduct,
+  getProductByUser,
 };
