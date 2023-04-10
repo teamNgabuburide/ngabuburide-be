@@ -158,7 +158,7 @@ module.exports = {
   editImages: async (req, res) => {
     try {
       const { id } = req.params;
-
+      const { image } = req.body;
       const dataImages = req.files;
       if (!req.files) {
         return res.status(401).json({ msg: "Image cannot blank" });
@@ -170,7 +170,7 @@ module.exports = {
 
       const updateProdImages = await productModel.updateImage(
         dataImages[0].filename,
-        data.image
+        image
       );
       return res.status(200).json({
         status: 200,
