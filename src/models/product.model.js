@@ -142,7 +142,6 @@ const deleteProduct = (id) => {
 };
 
 const updateImage = (newImage, currentImage) => {
-  console.log(newImage);
   return new Promise((resolve, reject) => {
     db.query(
       "with editImage as (select id from prod_images where image=$2) update prod_images set image=$1 from editImage where prod_images.id=editImage.id returning prod_images.id",
