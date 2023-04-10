@@ -68,4 +68,57 @@ module.exports = {
       client.release();
     }
   },
+  getTransactionByUser: async (req, res) => {
+    try {
+      const { id } = req.params;
+      console.log(id);
+      const getData = await transactionModel.getDataTransactionByUser(id);
+      const result = getData.reduce((acc, item) => {
+        const { transaction_id } = item;
+        const found = acc.find(
+          (grouped) => grouped.transaction_id === transaction_id
+        );
+
+        if (found) {
+          found.products.push({
+            prod_name: item.prod_name,
+            price: item.price,
+            qty: item.qty,
+            size_name: item.size_name,
+            subtotal: item.subtotal,
+          });
+        } else {
+          acc.push({
+            transaction_id,
+            display_name: item.display_name,
+            email: item.email,
+            promo_code: item.promo_code,
+            discount: item.discount,
+            notes: item.notes,
+            method: item.method,
+            products: [
+              {
+                prod_name: item.prod_name,
+                price: item.price,
+                qty: item.qty,
+                size_name: item.size_name,
+                subtotal: item.subtotal,
+              },
+            ],
+          });
+        }
+        return acc;
+      }, []);
+      return res.status(200).json({
+        status: 200,
+        msg: "Success get data",
+        data: result,
+      });
+    } catch (error) {
+      console.log(error);
+      return res
+        .status(500)
+        .json({ status: 500, msg: "internal server error" });
+    }
+  },
 };

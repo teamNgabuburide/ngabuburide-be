@@ -55,4 +55,19 @@ module.exports = {
       });
     });
   },
+  getDataTransactionByUser: (id) => {
+    return new Promise((resolve, reject) => {
+      db.query(
+        "select q.id as transaction_id, u.display_name, u.email, pr.promo_code, pr.discount, q.notes, p.prod_name, p.price, t.qty, ps.size_name, t.subtotal, pm.method from trans_prod_size t join products p on p.id=t.prod_id join transactions q on q.id=t.transaction_id join users u on u.id=q.user_id join promos pr on pr.id=q.promo_id join payment_method pm on pm.id=q.payment_id join status_deliv sd on sd.id=q.status_id join prod_size ps on ps.id=t.size_id where q.user_id=$1",
+        [id],
+        (error, result) => {
+          if (error) {
+            reject(error);
+          } else {
+            resolve(result.rows);
+          }
+        }
+      );
+    });
+  },
 };
