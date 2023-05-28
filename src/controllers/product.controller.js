@@ -9,7 +9,6 @@ module.exports = {
         .status(200)
         .json({ status: 200, msg: "Success get all categories", data: result });
     } catch (error) {
-      console.log(error);
       return res
         .status(500)
         .json({ status: 500, msg: "internal server error" });
@@ -18,12 +17,13 @@ module.exports = {
   addProduct: async (req, res) => {
     try {
       const result = await productModel.addProduct(req.body);
-      console.log(req.files);
+
       // await Promise.all(
       //   req.files.map((item) => {
       //     productModel.addImages(result[0].id, item.filename);
       //   })
       // );
+
       for (const item of req.files) {
         await productModel.addImages(result[0].id, item.filename);
       }
@@ -31,7 +31,6 @@ module.exports = {
         .status(201)
         .json({ status: 201, msg: "Success add produtc", data: result });
     } catch (error) {
-      console.log(error);
       return res
         .status(500)
         .json({ status: 500, msg: "internal server error" });
@@ -151,18 +150,16 @@ module.exports = {
         page: Number(page) == "" ? 1 : Number(page),
       });
     } catch (error) {
-      console.log(error);
       return res
         .status(500)
         .json({ status: 500, msg: "internal server error" });
     }
   },
-  editProduct: async (req, res) => {
+  editImages: async (req, res) => {
     try {
       const { id } = req.params;
-
-      console.log(req.body);
-      console.log(req.files);
+      const { image } = req.body;
+      const dataImages = req.files;
       if (!req.files) {
         return res.status(401).json({ msg: "Image cannot blank" });
       }
@@ -170,9 +167,42 @@ module.exports = {
       if (getData.length < 1) {
         return res.status(404).json({ status: 404, msg: "Product not found" });
       }
-      console.log(getData);
+
+      const updateProdImages = await productModel.updateImage(
+        dataImages[0].filename,
+        image
+      );
+      return res.status(200).json({
+        status: 200,
+        msg: "Success update images",
+        data: updateProdImages,
+      });
     } catch (error) {
-      console.log(error);
+      return res
+        .status(500)
+        .json({ status: 500, msg: "internal server error" });
+    }
+  },
+  updateProduct: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { prod_name, description, price, brand, stock, condition } =
+        req.body;
+      const result = await productModel.updateProduct(
+        id,
+        prod_name,
+        description,
+        price,
+        brand,
+        stock,
+        condition
+      );
+      return res.status(200).json({
+        status: 200,
+        msg: "Success update product",
+        data: result,
+      });
+    } catch (error) {
       return res
         .status(500)
         .json({ status: 500, msg: "internal server error" });
@@ -199,10 +229,44 @@ module.exports = {
       }
 
       return res
-        .status(201)
-        .json({ status: 201, msg: "Success get data", data: result });
+        .status(200)
+        .json({ status: 200, msg: "Success get data", data: result });
     } catch (error) {
-      console.log(error);
+      return res
+        .status(500)
+        .json({ status: 500, msg: "internal server error" });
+    }
+  },
+  deleteProduct: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const result = await productModel.deleteProduct(id);
+      return res
+        .status(200)
+        .json({ status: 200, msg: "Success delete data", data: result });
+    } catch (error) {
+      return res
+        .status(500)
+        .json({ status: 500, msg: "internal server error" });
+    }
+  },
+  getDataProductByUser: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const getData = await productModel.getProductByUser(id);
+      const result = getData.reduce((acc, curr) => {
+        const existing = acc.find((item) => item.id === curr.id);
+        if (existing) {
+          existing.image.push(curr.image);
+        } else {
+          acc.push({ ...curr, image: [curr.image] });
+        }
+        return acc;
+      }, []);
+      return res
+        .status(200)
+        .json({ status: 200, msg: "Success get data", data: result });
+    } catch (error) {
       return res
         .status(500)
         .json({ status: 500, msg: "internal server error" });

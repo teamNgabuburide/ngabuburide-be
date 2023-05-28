@@ -14,9 +14,11 @@ route.post(
 );
 route.get("/:id", productController.getProductById);
 route.patch(
-  "/edit/:id",
+  "/edit-images/:id",
   uploadImageProduct.uploadImage,
-  productController.editProduct
+  productController.editImages
 );
-
+route.patch("/edit/:id", productController.updateProduct);
+route.delete("/delete/:id", productController.deleteProduct);
+route.get("/user/:id", productController.getDataProductByUser);
 module.exports = route;
