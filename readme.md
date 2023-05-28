@@ -39,7 +39,7 @@ First of all, you need to install [Git](https://git-scm.com/download/win) & [Nod
 
 ```sh
 $ git clone https://github.com/teamNgabuburide/ngabuburide-be
-$ cd Coffeein-be
+$ cd ngabuburide-be
 $ code .
 $ npm i
 ```
@@ -51,7 +51,7 @@ $ apt-get update
 $ apt-get install git-all
 $ apt-get install nodejs-current
 $ git clone https://github.com/teamNgabuburide/ngabuburide-be
-$ cd coffeein-be
+$ cd ngabuburide-be
 $ code .
 $ npm i
 ```
