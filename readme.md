@@ -137,6 +137,18 @@ Download json [POSTMAN](https://api.postman.com/collections/22450553-eacc8fd4-eb
           <center><sub><b>Redha Definto </b></sub></center>
         </a>
         </td>
+      <td >
+        <a href="https://github.com/afif-buchori?tab=repositories">
+          <img width="100" src="https://avatars.githubusercontent.com/u/123707908?v=4" alt=""><br/>
+          <center><sub><b>Afif Buchori </b></sub></center>
+        </a>
+        </td>
+      <td >
+        <a href="https://github.com/abdulrosid21">
+          <img width="100" src="https://avatars.githubusercontent.com/u/80371735?v=4" alt=""><br/>
+          <center><sub><b>Afif Buchori </b></sub></center>
+        </a>
+        </td>
     </tr>
   </table>
 <h1 align="center"> THANK FOR YOUR ATTENTION </h1>
