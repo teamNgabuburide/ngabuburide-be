@@ -9,7 +9,7 @@
 
 # **Introduction**
 
-RAZYR FURNITURE is an ecommerce website.
+RAZYR FURNITURE is a backend application specifically designed to support the management and operation of a furniture business. This application provides various features that enable users to efficiently manage inventory, customers, orders and sales.
 
 ---
 
@@ -63,18 +63,18 @@ $ npm i
 2. Add .env file at root folder, and add following
 
 ```sh
-DB_HOST = ""
-DB_NAME = ""
-DB_PORT = ""
-DB_USER = ""
-DB_PWD = ""
-SERVER_PORT = ""
+DB_HOST = "YOUR HOST"
+DB_NAME = "YOUR DB NAME"
+DB_PORT = "YOUR DB PORT"
+DB_USER = "YOUR DB USER"
+DB_PWD = "YOUR DB PASSWORD"
+SERVER_PORT = "YOUR LOCALHOST"
 
-JWT_SECRET = ""
+JWT_SECRET = "YOUR SECRET JWT"
 
-CLOUD_NAME =  ""
-CLOUD_KEY = ""
-CLOUD_SECRET = ""
+CLOUD_NAME = "YOUR CLOUDNAME"
+CLOUD_KEY = "YOUR KEY CLOUD"
+CLOUD_SECRET = "YOUR KEY SECRET CLOUD "
 ```
 
 3. Starting application
@@ -125,8 +125,7 @@ Download json [POSTMAN](https://api.postman.com/collections/22450553-eacc8fd4-eb
 
 ## 𓆙 Related-Project
 
-- [FRONT-END](https://razyr-store.vercel.app/)
-- [BACK-END](https://ngabuburide-be.vercel.app/)
+- [FRONT-END](https://github.com/teamNgabuburide/ngabuburide-frontend)
 
 ## 𓆙 Contributor
 
