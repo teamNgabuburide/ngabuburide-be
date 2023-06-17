@@ -16,8 +16,6 @@ RAZYR FURNITURE is a backend application specifically designed to support the ma
 ## 𓆙 Table of Contents
 
 - [Introduction](#Introduction)
-- [Table of Contents](#𓆙-Table-of-Contents)
-- [Requirement](#𓆙-Requirement)
 - [Installation](#)
   - [Windows](#𓆙-Windows-Installation)
   - [Linux](#𓆙_Linux_Installation)
@@ -27,11 +25,6 @@ RAZYR FURNITURE is a backend application specifically designed to support the ma
 - [Related Project](#𓆙-Related-Project)
 - [Contributor](#𓆙-Contributors)
 
-## 𓆙 Requirement
-
-This repo require a [NodeJS](https://nodejs.org/)
-
-[ENV](#ENV) File
 
 ## 𓆙 Windows Installation
 
@@ -88,7 +81,7 @@ $ npm run dev
 | Endpoint                  |  Method  | Info         | Remark               |
 | ------------------------- | :------: | :----------- | :------------------- |
 | /auth                     |  `POST`  | Auth         | Login                |
-| /auth/logout              | `PATCH`  | Auth         | LOGOUT               |
+| /auth/logout              | `PATCH`  | Auth         | Logout               |
 | /auth/register            |  `POST`  | Auth         | Register             |
 | /auth                     | `PATCH`  | User         | Change Password      |
 | /auth/otp                 | `PATCH`  | User         | get otp              |
@@ -146,7 +139,19 @@ Download json [POSTMAN](https://api.postman.com/collections/22450553-eacc8fd4-eb
       <td >
         <a href="https://github.com/abdulrosid21">
           <img width="100" src="https://avatars.githubusercontent.com/u/80371735?v=4" alt=""><br/>
-          <center><sub><b>Afif Buchori </b></sub></center>
+          <center><sub><b>Abdul Latif Rosid</b></sub></center>
+        </a>
+        </td>
+      <td >
+        <a href="https://github.com/yanu-setiawan">
+          <img width="100" src="https://avatars.githubusercontent.com/u/121369426?v=4" alt=""><br/>
+          <center><sub><b>Yanu Setiawan </b></sub></center>
+        </a>
+        </td>
+       <td >
+        <a href="https://github.com/zikriaulia28">
+          <img width="100" src="https://avatars.githubusercontent.com/u/103765843?v=4" alt=""><br/>
+          <center><sub><b>Zikri Aulia </b></sub></center>
         </a>
         </td>
     </tr>
